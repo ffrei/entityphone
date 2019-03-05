@@ -13,10 +13,10 @@ namespace EntityPhone.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class entityphoneEntities1 : DbContext
+    public partial class appEntities : DbContext
     {
-        public entityphoneEntities1()
-            : base("name=entityphoneEntities1")
+        public appEntities()
+            : base("name=appEntities")
         {
         }
     

@@ -388,7 +388,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="entityphoneEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="appEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="call_history" EntityType="Self.call_history" />
           <EntitySet Name="client" EntityType="Self.client" />
           <EntitySet Name="history" EntityType="Self.history" />
@@ -431,7 +431,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="entityphoneModelStoreContainer" CdmEntityContainer="entityphoneEntities1">
+        <EntityContainerMapping StorageEntityContainer="entityphoneModelStoreContainer" CdmEntityContainer="appEntities">
           <EntitySetMapping Name="call_history">
             <EntityTypeMapping TypeName="entityphoneModel.call_history">
               <MappingFragment StoreEntitySet="call_history">

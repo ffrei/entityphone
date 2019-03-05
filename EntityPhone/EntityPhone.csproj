@@ -147,41 +147,44 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AppModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\call_history.cs">
-      <DependentUpon>PlanDataModel.tt</DependentUpon>
+      <DependentUpon>AppModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\client.cs">
+      <DependentUpon>AppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\history.cs">
-      <DependentUpon>PlanDataModel.tt</DependentUpon>
+      <DependentUpon>AppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\option.cs">
-      <DependentUpon>PlanDataModel.tt</DependentUpon>
+      <DependentUpon>AppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\plan.cs">
-      <DependentUpon>PlanDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PlanDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PlanDataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PlanDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PlanDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PlanDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PlanDataModel.edmx</DependentUpon>
+      <DependentUpon>AppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sms_history.cs">
-      <DependentUpon>PlanDataModel.tt</DependentUpon>
+      <DependentUpon>AppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\subscription.cs">
-      <DependentUpon>PlanDataModel.tt</DependentUpon>
+      <DependentUpon>AppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sub_option.cs">
-      <DependentUpon>PlanDataModel.tt</DependentUpon>
+      <DependentUpon>AppModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -194,24 +197,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\PlanDataModel.Context.tt">
+    <Content Include="Models\AppModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PlanDataModel.edmx</DependentUpon>
-      <LastGenOutput>PlanDataModel.Context.cs</LastGenOutput>
+      <DependentUpon>AppModel.edmx</DependentUpon>
+      <LastGenOutput>AppModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\PlanDataModel.tt">
+    <Content Include="Models\AppModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PlanDataModel.edmx</DependentUpon>
-      <LastGenOutput>PlanDataModel.cs</LastGenOutput>
+      <DependentUpon>AppModel.edmx</DependentUpon>
+      <LastGenOutput>AppModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\PlanDataModel.edmx">
+    <EntityDeploy Include="Models\AppModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PlanDataModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>AppModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\PlanDataModel.edmx.diagram">
-      <DependentUpon>PlanDataModel.edmx</DependentUpon>
+    <Content Include="Models\AppModel.edmx.diagram">
+      <DependentUpon>AppModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

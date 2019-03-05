@@ -1,16 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
-
+using EntityPhone.Models;
 namespace EntityPhone.Controllers
 {
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            return View();
+            StringBuilder sb = new StringBuilder();
+            using(var context = new appEntities())
+            {
+                /* var plan = new plan()
+                 {
+                     name = "Basic",
+                     minute_limit = 100,
+                     sms_limit = 110,
+                     price = 10,
+                     overage_minute_price = 0.014M,
+                     overage_sms_price = 0.15M,
+                     is_available = true
+
+                 };
+                 context.plan.Add(plan);
+                 context.SaveChanges();*/
+                var query = context.plan.ToList();
+                foreach(var plan in query)
+                {
+                    sb.AppendLine(plan.name);
+                }
+            }
+            
+            return View((object)sb.ToString());
         }
 
         public ActionResult About()
