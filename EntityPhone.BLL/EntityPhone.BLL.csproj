@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Controller\SubscriptionBLL.cs" />
     <Compile Include="Controller\ClientBLL.cs" />
+    <Compile Include="Controller\PlanBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
