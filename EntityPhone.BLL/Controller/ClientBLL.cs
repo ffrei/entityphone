@@ -10,9 +10,15 @@ namespace EntityPhone.BLL.Controller
 {
     public class ClientBLL
     {
+        private ClientDAL clientDAL { get; set; }
+
+        public ClientBLL()
+        {
+            this.clientDAL = new ClientDAL();
+        }
+
         public IClient Create(string name, DateTime birthday)
         {
-            ClientDAL clientDAL = new ClientDAL();
             if(birthday.Date == DateTime.Today)
             {
                 Console.WriteLine("Happy Birthday");
@@ -22,8 +28,28 @@ namespace EntityPhone.BLL.Controller
 
         public List<IClient> GetAll()
         {
-            ClientDAL clientDAL = new ClientDAL();
             return clientDAL.GetAll();
+        }
+
+
+        public IClient GetById(int id)
+        {
+            return clientDAL.GetById(id);
+        }
+
+        public IClient GetByPhoneNumber(string phone_number)
+        {
+            return clientDAL.GetByPhoneNumber(phone_number);
+        }
+
+        public void Update(IClient client)
+        {
+            clientDAL.Update(client);
+        }
+
+        public void Delete(IClient client)
+        {
+            clientDAL.Delete(client);
         }
     }
 }

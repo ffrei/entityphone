@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,5 +42,41 @@ namespace EntityPhone.DM.Controller
                 return res;
             }
         }
+
+        public IClient GetById(int id) {
+            using (var context = new EPEntities())
+            {
+                return context.client.Find(id);
+            }
+        }
+
+        public IClient GetByPhoneNumber(string phone_number)
+        {
+            using (var context = new EPEntities())
+            {
+                return context.client.Where(c =>
+                    c.subscription.Where(s => s.phone_number == phone_number).First().client_id == c.client_id).First();
+            }
+        }
+
+        public void Update(IClient client)
+        {
+            using (var context = new EPEntities())
+            {
+                // to test : context.client.Add((client)client);
+                context.Entry((client)client).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void Delete(IClient client)
+        {
+            using (var context = new EPEntities())
+            {
+                context.client.Remove((client)client);
+                context.SaveChanges();
+            }
+        }
+
     }
 }
