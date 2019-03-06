@@ -19,5 +19,11 @@ namespace EntityPhone.BLL.Controller
             }
             return clientDAL.Create(name, birthday);
         }
+
+        public List<IClient> GetAll()
+        {
+            ClientDAL clientDAL = new ClientDAL();
+            return clientDAL.GetAll();
+        }
     }
 }

@@ -83,6 +83,15 @@ namespace EntityPhone.Controllers
                                  //  var query = context.plan.Find(1).name;//context.plan.ToList();
                                  // log.Error(query);
 
+                foreach (var plan in context.plan)
+                {
+                    if (sb.Length > 0)
+                    {
+                        sb.Append(" ; ");
+                    }
+                    sb.Append(plan.name.Trim());
+
+                }
             }
             
             return View((object)sb.ToString());

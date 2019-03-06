@@ -1,0 +1,81 @@
+@startuml
+class client{
+client_id
+seller_ref
+name
+birthday
+generate_invoice(month, year)
+subscribe(plan_id, ?phone_number)
+unsubscribe(phone_number)
+}
+
+class subscription {
+subcription_id
+fk plan_id
+fk client_id
+phone_number
+start_day
+end_day
+get_history(month, year)
+subscribe(option_id)
+unsubscribe(option_id)
+}
+
+class plan {
+plan_id
+name
+minute_limit
+sms_limit
+price
+overage_minute_price
+overage_sms_price
+is_available
+disable()
+}
+
+class history{
+history_id
+subcription_id
+timestamp
+destination_number
+phone_code
+}
+
+
+class call_history {
+history_id
+duration
+}
+
+class sms_history {
+history_id
+}
+
+class option{
+option_id
+minute_limit
+sms_limit
+price
+overage_minute_price
+overage_sms_price
+name
+is_available
+disable()
+}
+
+class sub_option{
+fk subcription_id
+fk option_id
+start_day
+end_day
+}
+
+client "*" -- "*" plan
+(client, plan) .. subscription
+
+subscription "1" -- "*" history 
+history <|-- sms_history
+history <|-- call_history
+subscription "*" -right- "*" option
+sub_option .. (subscription , option)
+@enduml
