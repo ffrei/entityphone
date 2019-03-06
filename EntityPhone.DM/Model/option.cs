@@ -27,6 +27,7 @@ namespace EntityPhone.DM.Model
         public decimal overage_minute_price { get; set; }
         public decimal overage_sms_price { get; set; }
         public bool is_available { get; set; }
+        public string name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sub_option> sub_option { get; set; }

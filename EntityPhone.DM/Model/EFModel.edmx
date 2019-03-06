@@ -42,6 +42,7 @@
           <Property Name="overage_minute_price" Type="numeric" Precision="8" Scale="3" Nullable="false" />
           <Property Name="overage_sms_price" Type="numeric" Precision="8" Scale="3" Nullable="false" />
           <Property Name="is_available" Type="bit" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="plan">
           <Key>
@@ -81,7 +82,7 @@
           <Property Name="client_id" Type="int" Nullable="false" />
           <Property Name="phone_number" Type="varchar" MaxLength="12" Nullable="false" />
           <Property Name="start_date" Type="date" Nullable="false" />
-          <Property Name="end_date" Type="date" Nullable="false" />
+          <Property Name="end_date" Type="date" />
         </EntityType>
         <Association Name="FK_call_history_history">
           <End Role="history" Type="Self.history" Multiplicity="1" />
@@ -245,6 +246,7 @@
           <Property Name="overage_sms_price" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
           <Property Name="is_available" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="sub_option" Relationship="Self.FK_sub_option_option" FromRole="option" ToRole="sub_option" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="plan">
           <Key>
@@ -283,7 +285,7 @@
           <Property Name="client_id" Type="Int32" Nullable="false" />
           <Property Name="phone_number" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="end_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="end_date" Type="DateTime" Precision="0" />
           <NavigationProperty Name="client" Relationship="Self.FK_subscription_client" FromRole="subscription" ToRole="client" />
           <NavigationProperty Name="history" Relationship="Self.FK_history_subscription" FromRole="subscription" ToRole="history" />
           <NavigationProperty Name="plan" Relationship="Self.FK_subscription_plan" FromRole="subscription" ToRole="plan" />
@@ -418,6 +420,7 @@
           <EntitySetMapping Name="option">
             <EntityTypeMapping TypeName="entityphoneModel.option">
               <MappingFragment StoreEntitySet="option">
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="option_id" ColumnName="option_id" />
                 <ScalarProperty Name="minute_limit" ColumnName="minute_limit" />
                 <ScalarProperty Name="sms_limit" ColumnName="sms_limit" />

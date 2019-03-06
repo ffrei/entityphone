@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\HistoryBLL.cs" />
+    <Compile Include="Controller\OptionBLL.cs" />
+    <Compile Include="Controller\SubOptionBLL.cs" />
     <Compile Include="Controller\SubscriptionBLL.cs" />
     <Compile Include="Controller\ClientBLL.cs" />
     <Compile Include="Controller\PlanBLL.cs" />

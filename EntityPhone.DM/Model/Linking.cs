@@ -102,7 +102,7 @@ namespace EntityPhone.DM.Model
         public void SetPhoneNumber(string val) { this.phone_number = val; }
         public DateTime GetStartDate() { return this.start_date; }
         public void SetStartDate(DateTime val) { this.start_date = val; }
-        public DateTime GetEndDate() { return this.end_date; }
+        public DateTime? GetEndDate() { return this.end_date; }
         public void SetEndDate(DateTime val) { this.end_date = val; }
     }
 

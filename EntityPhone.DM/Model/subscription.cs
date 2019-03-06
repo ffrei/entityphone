@@ -26,7 +26,7 @@ namespace EntityPhone.DM.Model
         public int client_id { get; set; }
         public string phone_number { get; set; }
         public System.DateTime start_date { get; set; }
-        public System.DateTime end_date { get; set; }
+        public Nullable<System.DateTime> end_date { get; set; }
     
         public virtual client client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
