@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bcec93fdf0ff49ab9c636a61c12f97f5" Name="Diagram1">
+        <EntityTypeShape EntityType="entityphoneModel.call_history" Width="1.5" PointX="8.5" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="entityphoneModel.client" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="entityphoneModel.history" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="entityphoneModel.option" Width="1.5" PointX="7.875" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="entityphoneModel.plan" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="entityphoneModel.sms_history" Width="1.5" PointX="7.5" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="entityphoneModel.sub_option" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="entityphoneModel.subscription" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="entityphoneModel.FK_subscription_client" ManuallyRouted="false" />
+        <AssociationConnector Association="entityphoneModel.FK_history_subscription" ManuallyRouted="false" />
+        <AssociationConnector Association="entityphoneModel.FK_sub_option_option" ManuallyRouted="false" />
+        <AssociationConnector Association="entityphoneModel.FK_subscription_plan" ManuallyRouted="false" />
+        <AssociationConnector Association="entityphoneModel.FK_sub_option_subscription" ManuallyRouted="false" />
+        <InheritanceConnector EntityType="entityphoneModel.call_history" />
+        <InheritanceConnector EntityType="entityphoneModel.sms_history" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,491 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="entityphoneModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="call_history">
+          <Key>
+            <PropertyRef Name="history_id" />
+          </Key>
+          <Property Name="history_id" Type="int" Nullable="false" />
+          <Property Name="duration" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="client_id" />
+          </Key>
+          <Property Name="client_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="seller_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="birthday" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="history">
+          <Key>
+            <PropertyRef Name="history_id" />
+          </Key>
+          <Property Name="history_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subscription_id" Type="int" Nullable="false" />
+          <Property Name="timestamp" Type="datetime" Nullable="false" />
+          <Property Name="destination_number" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="phone_code" Type="varchar" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="option">
+          <Key>
+            <PropertyRef Name="option_id" />
+          </Key>
+          <Property Name="option_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="minute_limit" Type="int" Nullable="false" />
+          <Property Name="sms_limit" Type="int" Nullable="false" />
+          <Property Name="price" Type="numeric" Precision="8" Scale="3" Nullable="false" />
+          <Property Name="overage_minute_price" Type="numeric" Precision="8" Scale="3" Nullable="false" />
+          <Property Name="overage_sms_price" Type="numeric" Precision="8" Scale="3" Nullable="false" />
+          <Property Name="is_available" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="plan">
+          <Key>
+            <PropertyRef Name="plan_id" />
+          </Key>
+          <Property Name="plan_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="minute_limit" Type="int" Nullable="false" />
+          <Property Name="sms_limit" Type="int" Nullable="false" />
+          <Property Name="price" Type="numeric" Precision="8" Scale="3" Nullable="false" />
+          <Property Name="overage_minute_price" Type="numeric" Precision="8" Scale="3" Nullable="false" />
+          <Property Name="overage_sms_price" Type="numeric" Precision="8" Scale="3" Nullable="false" />
+          <Property Name="is_available" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sms_history">
+          <Key>
+            <PropertyRef Name="histoty_id" />
+          </Key>
+          <Property Name="histoty_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sub_option">
+          <Key>
+            <PropertyRef Name="sub_option_id" />
+          </Key>
+          <Property Name="sub_option_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subscription_id" Type="int" Nullable="false" />
+          <Property Name="option_id" Type="int" Nullable="false" />
+          <Property Name="start_date" Type="date" Nullable="false" />
+          <Property Name="end_date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="subscription">
+          <Key>
+            <PropertyRef Name="subscription_id" />
+          </Key>
+          <Property Name="subscription_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="plan_id" Type="int" Nullable="false" />
+          <Property Name="client_id" Type="int" Nullable="false" />
+          <Property Name="phone_number" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="start_date" Type="date" Nullable="false" />
+          <Property Name="end_date" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_call_history_history">
+          <End Role="history" Type="Self.history" Multiplicity="1" />
+          <End Role="call_history" Type="Self.call_history" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="history">
+              <PropertyRef Name="history_id" />
+            </Principal>
+            <Dependent Role="call_history">
+              <PropertyRef Name="history_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_history_subscription">
+          <End Role="subscription" Type="Self.subscription" Multiplicity="1" />
+          <End Role="history" Type="Self.history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subscription">
+              <PropertyRef Name="subscription_id" />
+            </Principal>
+            <Dependent Role="history">
+              <PropertyRef Name="subscription_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sms_history_history">
+          <End Role="history" Type="Self.history" Multiplicity="1" />
+          <End Role="sms_history" Type="Self.sms_history" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="history">
+              <PropertyRef Name="history_id" />
+            </Principal>
+            <Dependent Role="sms_history">
+              <PropertyRef Name="histoty_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sub_option_option">
+          <End Role="option" Type="Self.option" Multiplicity="1" />
+          <End Role="sub_option" Type="Self.sub_option" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="option">
+              <PropertyRef Name="option_id" />
+            </Principal>
+            <Dependent Role="sub_option">
+              <PropertyRef Name="option_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sub_option_subscription">
+          <End Role="subscription" Type="Self.subscription" Multiplicity="1" />
+          <End Role="sub_option" Type="Self.sub_option" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subscription">
+              <PropertyRef Name="subscription_id" />
+            </Principal>
+            <Dependent Role="sub_option">
+              <PropertyRef Name="subscription_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_subscription_client">
+          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="subscription" Type="Self.subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="client_id" />
+            </Principal>
+            <Dependent Role="subscription">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_subscription_plan">
+          <End Role="plan" Type="Self.plan" Multiplicity="1" />
+          <End Role="subscription" Type="Self.subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="plan">
+              <PropertyRef Name="plan_id" />
+            </Principal>
+            <Dependent Role="subscription">
+              <PropertyRef Name="plan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="entityphoneModelStoreContainer">
+          <EntitySet Name="call_history" EntityType="Self.call_history" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="client" EntityType="Self.client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="history" EntityType="Self.history" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="option" EntityType="Self.option" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="plan" EntityType="Self.plan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sms_history" EntityType="Self.sms_history" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sub_option" EntityType="Self.sub_option" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="subscription" EntityType="Self.subscription" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_call_history_history" Association="Self.FK_call_history_history">
+            <End Role="history" EntitySet="history" />
+            <End Role="call_history" EntitySet="call_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK_history_subscription" Association="Self.FK_history_subscription">
+            <End Role="subscription" EntitySet="subscription" />
+            <End Role="history" EntitySet="history" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sms_history_history" Association="Self.FK_sms_history_history">
+            <End Role="history" EntitySet="history" />
+            <End Role="sms_history" EntitySet="sms_history" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sub_option_option" Association="Self.FK_sub_option_option">
+            <End Role="option" EntitySet="option" />
+            <End Role="sub_option" EntitySet="sub_option" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sub_option_subscription" Association="Self.FK_sub_option_subscription">
+            <End Role="subscription" EntitySet="subscription" />
+            <End Role="sub_option" EntitySet="sub_option" />
+          </AssociationSet>
+          <AssociationSet Name="FK_subscription_client" Association="Self.FK_subscription_client">
+            <End Role="client" EntitySet="client" />
+            <End Role="subscription" EntitySet="subscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_subscription_plan" Association="Self.FK_subscription_plan">
+            <End Role="plan" EntitySet="plan" />
+            <End Role="subscription" EntitySet="subscription" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="entityphoneModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="call_history" BaseType="entityphoneModel.history">
+          <Property Name="duration" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="client_id" />
+          </Key>
+          <Property Name="client_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="seller_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="birthday" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="subscription" Relationship="Self.FK_subscription_client" FromRole="client" ToRole="subscription" />
+        </EntityType>
+        <EntityType Name="history">
+          <Key>
+            <PropertyRef Name="history_id" />
+          </Key>
+          <Property Name="history_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subscription_id" Type="Int32" Nullable="false" />
+          <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="destination_number" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone_code" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="subscription" Relationship="Self.FK_history_subscription" FromRole="history" ToRole="subscription" />
+        </EntityType>
+        <EntityType Name="option">
+          <Key>
+            <PropertyRef Name="option_id" />
+          </Key>
+          <Property Name="option_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="minute_limit" Type="Int32" Nullable="false" />
+          <Property Name="sms_limit" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
+          <Property Name="overage_minute_price" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
+          <Property Name="overage_sms_price" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
+          <Property Name="is_available" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="sub_option" Relationship="Self.FK_sub_option_option" FromRole="option" ToRole="sub_option" />
+        </EntityType>
+        <EntityType Name="plan">
+          <Key>
+            <PropertyRef Name="plan_id" />
+          </Key>
+          <Property Name="plan_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="minute_limit" Type="Int32" Nullable="false" />
+          <Property Name="sms_limit" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
+          <Property Name="overage_minute_price" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
+          <Property Name="overage_sms_price" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
+          <Property Name="is_available" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="subscription" Relationship="Self.FK_subscription_plan" FromRole="plan" ToRole="subscription" />
+        </EntityType>
+        <EntityType Name="sms_history" BaseType="entityphoneModel.history">
+        </EntityType>
+        <EntityType Name="sub_option">
+          <Key>
+            <PropertyRef Name="sub_option_id" />
+          </Key>
+          <Property Name="sub_option_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subscription_id" Type="Int32" Nullable="false" />
+          <Property Name="option_id" Type="Int32" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="end_date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="option" Relationship="Self.FK_sub_option_option" FromRole="sub_option" ToRole="option" />
+          <NavigationProperty Name="subscription" Relationship="Self.FK_sub_option_subscription" FromRole="sub_option" ToRole="subscription" />
+        </EntityType>
+        <EntityType Name="subscription">
+          <Key>
+            <PropertyRef Name="subscription_id" />
+          </Key>
+          <Property Name="subscription_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="plan_id" Type="Int32" Nullable="false" />
+          <Property Name="client_id" Type="Int32" Nullable="false" />
+          <Property Name="phone_number" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="end_date" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="client" Relationship="Self.FK_subscription_client" FromRole="subscription" ToRole="client" />
+          <NavigationProperty Name="history" Relationship="Self.FK_history_subscription" FromRole="subscription" ToRole="history" />
+          <NavigationProperty Name="plan" Relationship="Self.FK_subscription_plan" FromRole="subscription" ToRole="plan" />
+          <NavigationProperty Name="sub_option" Relationship="Self.FK_sub_option_subscription" FromRole="subscription" ToRole="sub_option" />
+        </EntityType>
+        <Association Name="FK_subscription_client">
+          <End Role="client" Type="Self.client" Multiplicity="1" />
+          <End Role="subscription" Type="Self.subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="client">
+              <PropertyRef Name="client_id" />
+            </Principal>
+            <Dependent Role="subscription">
+              <PropertyRef Name="client_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_history_subscription">
+          <End Role="subscription" Type="Self.subscription" Multiplicity="1" />
+          <End Role="history" Type="Self.history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subscription">
+              <PropertyRef Name="subscription_id" />
+            </Principal>
+            <Dependent Role="history">
+              <PropertyRef Name="subscription_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sub_option_option">
+          <End Role="option" Type="Self.option" Multiplicity="1" />
+          <End Role="sub_option" Type="Self.sub_option" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="option">
+              <PropertyRef Name="option_id" />
+            </Principal>
+            <Dependent Role="sub_option">
+              <PropertyRef Name="option_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_subscription_plan">
+          <End Role="plan" Type="Self.plan" Multiplicity="1" />
+          <End Role="subscription" Type="Self.subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="plan">
+              <PropertyRef Name="plan_id" />
+            </Principal>
+            <Dependent Role="subscription">
+              <PropertyRef Name="plan_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_sub_option_subscription">
+          <End Role="subscription" Type="Self.subscription" Multiplicity="1" />
+          <End Role="sub_option" Type="Self.sub_option" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="subscription">
+              <PropertyRef Name="subscription_id" />
+            </Principal>
+            <Dependent Role="sub_option">
+              <PropertyRef Name="subscription_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="client" EntityType="Self.client" />
+          <EntitySet Name="history" EntityType="Self.history" />
+          <EntitySet Name="option" EntityType="Self.option" />
+          <EntitySet Name="plan" EntityType="Self.plan" />
+          <EntitySet Name="sub_option" EntityType="Self.sub_option" />
+          <EntitySet Name="subscription" EntityType="Self.subscription" />
+          <AssociationSet Name="FK_subscription_client" Association="Self.FK_subscription_client">
+            <End Role="client" EntitySet="client" />
+            <End Role="subscription" EntitySet="subscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_history_subscription" Association="Self.FK_history_subscription">
+            <End Role="subscription" EntitySet="subscription" />
+            <End Role="history" EntitySet="history" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sub_option_option" Association="Self.FK_sub_option_option">
+            <End Role="option" EntitySet="option" />
+            <End Role="sub_option" EntitySet="sub_option" />
+          </AssociationSet>
+          <AssociationSet Name="FK_subscription_plan" Association="Self.FK_subscription_plan">
+            <End Role="plan" EntitySet="plan" />
+            <End Role="subscription" EntitySet="subscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sub_option_subscription" Association="Self.FK_sub_option_subscription">
+            <End Role="subscription" EntitySet="subscription" />
+            <End Role="sub_option" EntitySet="sub_option" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="entityphoneModelStoreContainer" CdmEntityContainer="EPEntities">
+          <EntitySetMapping Name="client">
+            <EntityTypeMapping TypeName="entityphoneModel.client">
+              <MappingFragment StoreEntitySet="client">
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="seller_id" ColumnName="seller_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="history">
+            <EntityTypeMapping TypeName="IsTypeOf(entityphoneModel.history)">
+              <MappingFragment StoreEntitySet="history">
+                <ScalarProperty Name="history_id" ColumnName="history_id" />
+                <ScalarProperty Name="phone_code" ColumnName="phone_code" />
+                <ScalarProperty Name="destination_number" ColumnName="destination_number" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="subscription_id" ColumnName="subscription_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(entityphoneModel.call_history)">
+              <MappingFragment StoreEntitySet="call_history">
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="history_id" ColumnName="history_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(entityphoneModel.sms_history)">
+              <MappingFragment StoreEntitySet="sms_history">
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="option">
+            <EntityTypeMapping TypeName="entityphoneModel.option">
+              <MappingFragment StoreEntitySet="option">
+                <ScalarProperty Name="option_id" ColumnName="option_id" />
+                <ScalarProperty Name="minute_limit" ColumnName="minute_limit" />
+                <ScalarProperty Name="sms_limit" ColumnName="sms_limit" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="overage_minute_price" ColumnName="overage_minute_price" />
+                <ScalarProperty Name="overage_sms_price" ColumnName="overage_sms_price" />
+                <ScalarProperty Name="is_available" ColumnName="is_available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="plan">
+            <EntityTypeMapping TypeName="entityphoneModel.plan">
+              <MappingFragment StoreEntitySet="plan">
+                <ScalarProperty Name="plan_id" ColumnName="plan_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="minute_limit" ColumnName="minute_limit" />
+                <ScalarProperty Name="sms_limit" ColumnName="sms_limit" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="overage_minute_price" ColumnName="overage_minute_price" />
+                <ScalarProperty Name="overage_sms_price" ColumnName="overage_sms_price" />
+                <ScalarProperty Name="is_available" ColumnName="is_available" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sub_option">
+            <EntityTypeMapping TypeName="entityphoneModel.sub_option">
+              <MappingFragment StoreEntitySet="sub_option">
+                <ScalarProperty Name="sub_option_id" ColumnName="sub_option_id" />
+                <ScalarProperty Name="subscription_id" ColumnName="subscription_id" />
+                <ScalarProperty Name="option_id" ColumnName="option_id" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="subscription">
+            <EntityTypeMapping TypeName="entityphoneModel.subscription">
+              <MappingFragment StoreEntitySet="subscription">
+                <ScalarProperty Name="subscription_id" ColumnName="subscription_id" />
+                <ScalarProperty Name="plan_id" ColumnName="plan_id" />
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
