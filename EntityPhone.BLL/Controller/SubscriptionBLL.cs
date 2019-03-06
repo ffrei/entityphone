@@ -8,11 +8,11 @@ using EntityPhone.Model;
 
 namespace EntityPhone.BLL.Controller
 {
-    public class SubcriptionBLL
+    public class SubscriptionBLL
     {
         private SubscriptionDAL subscriptionDAL { get; set; }
 
-        public SubcriptionBLL()
+        public SubscriptionBLL()
         {
             this.subscriptionDAL = new SubscriptionDAL();
         }
@@ -21,7 +21,7 @@ namespace EntityPhone.BLL.Controller
             int client_id,
             string phone_number,
             DateTime start_date,
-            DateTime end_date)
+            DateTime? end_date)
         {
             return subscriptionDAL.Create(plan_id, client_id, phone_number, start_date, end_date);
         }

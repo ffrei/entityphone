@@ -16,7 +16,7 @@ namespace EntityPhone.DM.Controller
             int client_id,
             string phone_number,
             DateTime start_date,
-            DateTime end_date
+            DateTime? end_date
             )
         {
             using (var context = new EPEntities())
@@ -27,8 +27,11 @@ namespace EntityPhone.DM.Controller
                     client_id = client_id,
                     phone_number = phone_number,
                     start_date = start_date,
-                    end_date = end_date
                 };
+                if (end_date != null)
+                {
+                    s.end_date = (DateTime)end_date;
+                }
                 context.subscription.Add(s);
                 context.SaveChanges();
                 if (s.subscription_id > 0)
@@ -73,7 +76,8 @@ namespace EntityPhone.DM.Controller
         {
             using (var context = new EPEntities())
             {
-                context.subscription.Remove((subscription)subscription);
+                //context.subscription.Remove((subscription)subscription);
+                context.Entry((subscription)subscription).State = EntityState.Deleted;
                 context.SaveChanges();
             }
         }

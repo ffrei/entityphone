@@ -14,8 +14,8 @@ subcription_id
 fk plan_id
 fk client_id
 phone_number
-start_day
-end_day
+start_date
+end_date
 get_history(month, year)
 subscribe(option_id)
 unsubscribe(option_id)
@@ -64,10 +64,11 @@ disable()
 }
 
 class sub_option{
+sub_option_id
 fk subcription_id
 fk option_id
-start_day
-end_day
+start_date
+end_date
 }
 
 client "*" -- "*" plan

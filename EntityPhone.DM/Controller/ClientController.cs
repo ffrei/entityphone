@@ -55,7 +55,7 @@ namespace EntityPhone.DM.Controller
             using (var context = new EPEntities())
             {
                 return context.client.Where(c =>
-                    c.subscription.Where(s => s.phone_number == phone_number).First().client_id == c.client_id).First();
+                    c.subscription.Where(s => s.phone_number == phone_number).FirstOrDefault().client_id == c.client_id).First();
             }
         }
 
@@ -73,7 +73,8 @@ namespace EntityPhone.DM.Controller
         {
             using (var context = new EPEntities())
             {
-                context.client.Remove((client)client);
+                //context.client.Remove((client)client);
+                context.Entry((client)client).State = EntityState.Deleted;
                 context.SaveChanges();
             }
         }

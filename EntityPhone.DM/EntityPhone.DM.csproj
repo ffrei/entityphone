@@ -50,7 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Controller\SubscriptionController.cs" />
     <Compile Include="Controller\ClientController.cs" />
     <Compile Include="Controller\PlanController.cs" />
