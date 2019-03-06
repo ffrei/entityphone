@@ -6,12 +6,17 @@ using System.Threading.Tasks;
 
 namespace EntityPhone.Model
 {
-    public abstract class ISubOption
+    public interface ISubOption
     {
-        public int sub_option_id { get; set; }
-        public int subscription_id { get; set; }
-        public int option_id { get; set; }
-        public DateTime start_date { get; set; }
-        public DateTime end_date { get; set; }
+        int GetSubOptionId();
+        void SetSubOptionId(int val);
+        int GetSubscriptionId();
+        void SetSubscriptionId(int val);
+        int GetOptionId();
+        void SetOptionId(int val);
+        DateTime GetStartDate();
+        void SetStartDate(DateTime val);
+        DateTime GetEndDate();
+        void SetEndDate(DateTime val);
     }
 }

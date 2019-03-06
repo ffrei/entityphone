@@ -6,14 +6,22 @@ using System.Threading.Tasks;
 
 namespace EntityPhone.Model
 {
-    public abstract class IOption
+    public interface IOption
     {
-        public int option_id { get; set; }
-        public int minute_limit { get; set; }
-        public int sms_limit { get; set; }
-        public decimal price { get; set; }
-        public decimal overage_minute_price { get; set; }
-        public decimal overage_sms_price { get; set; }
-        public bool is_available { get; set; }
+        int GetOptionId();
+        void SetOptionId(int val);
+        int GetMinuteLimit();
+        void SetMinuteLimit(int val);
+        int GetSMSLimit();
+        void SetSMSLimit(int val);
+        decimal GetPrice();
+        void SetPrice(decimal val);
+        decimal GetOverageMinutePrice();
+        void SetOverageMinutePrice(decimal val);
+        decimal GetOverageSMSPrice();
+        void SetOverageSMSPrice(decimal val);
+        bool GetIsAvailable();
+        void SetIsAvailable(bool val);
+
     }
 }

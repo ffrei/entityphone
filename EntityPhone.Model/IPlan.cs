@@ -6,16 +6,23 @@ using System.Threading.Tasks;
 
 namespace EntityPhone.Model
 {
-    public class IPlan
+    public interface IPlan
     {
-        public int plan_id { get; set; }
-        public string name { get; set; }
-        public int minute_limit { get; set; }
-        public int sms_limit { get; set; }
-        public decimal price { get; set; }
-        public decimal overage_minute_price { get; set; }
-        public decimal overage_sms_price { get; set; }
-        public bool is_available { get; set; }
-
+        int GetPlanId();
+        void SetPlanId(int val);
+        string GetName();
+        void SetName(string val);
+        int GetMinuteLimit();
+        void SetMinuteLimit(int val);
+        int GetSMSLimit();
+        void SetSMSLimit(int val);
+        decimal GetPrice();
+        void SetPrice(decimal val);
+        decimal GetOverageMinutePrice();
+        void SetOverageMinutePrice(decimal val);
+        decimal GetOverageSMSPrice();
+        void SetOverageSMSPrice(decimal val);
+        bool GetIsAvailable();
+        void SetIsAvailable(bool val);
     }
 }

@@ -6,13 +6,20 @@ using System.Threading.Tasks;
 
 namespace EntityPhone.Model
 {
-    public abstract class ISubscription
+    public interface ISubscription
     {
-        public int subscription_id { get; set; }
-        public int plan_id { get; set; }
-        public int client_id { get; set; }
-        public string phone_number { get; set; }
-        public DateTime start_date { get; set; }
-        public string end_date { get; set; }
+        int GetSubscriptionId();
+        void SetSubscriptionId(int val);
+        int GetPlanId();
+        void SetPlanId(int val);
+        int GetClientId();
+        void SetClientId(int val);
+        string GetPhoneNumber();
+        void SetPhoneNumber(string val);
+        DateTime GetStartDate();
+        void SetStartDate(DateTime val);
+        DateTime GetEndDate();
+        void SetEndDate(DateTime val);
+
     }
 }

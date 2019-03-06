@@ -6,12 +6,18 @@ using System.Threading.Tasks;
 
 namespace EntityPhone.Model
 {
-    public abstract class IHistory
+    public interface IHistory
     {
-        public int history_id { get; set; }
-        public int subscription_id { get; set; }
-        public DateTime timestamp { get; set; }
-        public string destination_number { get; set; }
-        public string phone_code { get; set; }
+        int GetHistoryId();
+        void SetHistoryId(int val);
+        int GetSubscriptionId();
+        void SetSubscriptionId(int val);
+        DateTime GetTimestamp();
+        void SetTimestamp(DateTime val);
+        string GetDestinationNumber();
+        void SetDestinationNumber(string val);
+        string GetPhoneCode();
+        void SetPhoneCode(string val);
+
     }
 }
