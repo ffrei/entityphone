@@ -9,7 +9,6 @@
 
 namespace EntityPhone.DM.Model
 {
-    using EntityPhone.Model;
     using System;
     using System.Collections.Generic;
     

@@ -10,10 +10,10 @@ namespace EntityPhone.BLL.Controller
 {
     public class PlanBLL
     {
-        PlanDAL planDAL;
+        private PlanDAL planDAL { get; set; }
         public PlanBLL()
         {
-            planDAL = new PlanDAL();
+            this.planDAL = new PlanDAL();
         }
         public IPlan Create(string name, int minute_limit, int sms_limit, decimal price, decimal overage_minute_price, decimal overage_sms_price, bool is_available)
         {
