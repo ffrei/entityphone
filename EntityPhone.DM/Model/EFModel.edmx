@@ -81,6 +81,7 @@
           <Property Name="phone_number" Type="varchar" MaxLength="12" Nullable="false" />
           <Property Name="start_date" Type="date" Nullable="false" />
           <Property Name="end_date" Type="date" />
+          <Property Name="phone_code" Type="varchar" MaxLength="4" />
         </EntityType>
         <Association Name="FK_call_history_history">
           <End Role="history" Type="Self.history" Multiplicity="1" />
@@ -286,6 +287,7 @@
           <NavigationProperty Name="history" Relationship="Self.FK_history_subscription" FromRole="subscription" ToRole="history" />
           <NavigationProperty Name="plan" Relationship="Self.FK_subscription_plan" FromRole="subscription" ToRole="plan" />
           <NavigationProperty Name="sub_option" Relationship="Self.FK_sub_option_subscription" FromRole="subscription" ToRole="sub_option" />
+          <Property Name="phone_code" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_subscription_client">
           <End Role="client" Type="Self.client" Multiplicity="1" />
@@ -453,6 +455,7 @@
           <EntitySetMapping Name="subscription">
             <EntityTypeMapping TypeName="entityphoneModel.subscription">
               <MappingFragment StoreEntitySet="subscription">
+                <ScalarProperty Name="phone_code" ColumnName="phone_code" />
                 <ScalarProperty Name="subscription_id" ColumnName="subscription_id" />
                 <ScalarProperty Name="plan_id" ColumnName="plan_id" />
                 <ScalarProperty Name="client_id" ColumnName="client_id" />

@@ -26,6 +26,8 @@ namespace EntityPhone.DM.Model
                 yield return new ValidationResult("Name can't be numbers or special characters");
             if (this.birthday > DateTime.Today)
                 yield return new ValidationResult("Are you a time traveler ? Birthday cannot be in the future !");
+            if ((this.birthday - DateTime.Today).TotalDays< 6570 || (this.birthday - DateTime.Today).TotalDays > 40150)
+                yield return new ValidationResult("You need to be at least 18 years old and less that 110 years old !");
         }
     }
     public partial class history : IHistory
