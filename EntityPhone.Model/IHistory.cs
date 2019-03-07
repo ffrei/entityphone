@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EntityPhone.Model
 {
-    public interface IHistory
+    public interface IHistory : IValidatableObject
     {
         int GetHistoryId();
         void SetHistoryId(int val);

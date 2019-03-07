@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EntityPhone.Model
 {
-    public interface ISubscription
+    public interface ISubscription : IValidatableObject
     {
         int GetSubscriptionId();
         void SetSubscriptionId(int val);

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EntityPhone.Model
 {
-    public interface ISubOption
+    public interface ISubOption : IValidatableObject
     {
         int GetSubOptionId();
         void SetSubOptionId(int val);
