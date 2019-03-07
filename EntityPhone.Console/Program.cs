@@ -31,7 +31,7 @@ namespace EntityPhone.Console
                 null);
 
             String phoneNumber = subscriptionThomas.GetPhoneNumber();
-            System.Console.WriteLine("Searching client by phone number : "+ phoneNumber);
+            System.Console.WriteLine("Searching client by phone number : " + phoneNumber);
             IClient clientThomas2 = clientBLL.GetByPhoneNumber(phoneNumber);
 
             if (clientThomas2 != null)
@@ -74,33 +74,80 @@ namespace EntityPhone.Console
 
 
             System.Console.WriteLine();
-            System.Console.WriteLine("Create an History");
+            System.Console.WriteLine("Creating some SMS and Call History");
             List<IHistory> Histories = new List<IHistory>();
 
             HistoryBLL historyBLL = new HistoryBLL();
-            for(int i=0; i < 15; i++)
+            for (int i = 0; i < 5; i++)
             {
                 ISMSHistory history = historyBLL.CreateSMS(subscriptionThomas.GetClientId(), DateTime.Now, "605040302", "+33");
+                ICallHistory call = historyBLL.CreateVoice(subscriptionThomas.GetClientId(), DateTime.Now, "605040343", "+33", 35);
                 Thread.Sleep(1000);
-                Histories.Add(history as IHistory);
+                Histories.Add(history);
+                Histories.Add(call);
             }
 
             System.Console.WriteLine();
             System.Console.WriteLine("List all history");
 
-            foreach(IHistory histor in Histories)
+            foreach (IHistory histor in historyBLL.GetAll())
             {
+                if (histor is ICallHistory)
+                {
+                    System.Console.WriteLine("Phone call : " + histor.GetTimestamp()
+                        + " FROM : " + subscriptionBLL.GetById(histor.GetSubscriptionId()).GetPhoneNumber()
+                        + " TO : " + histor.GetDestinationNumber()
+                        + " DURING  : " + ((ICallHistory)histor).GetDuration() + " Seconds");
+                }
+                else
+                {
+                    System.Console.WriteLine("SMS : " + histor.GetTimestamp()
+                        + " FROM : " + subscriptionBLL.GetById(histor.GetSubscriptionId()).GetPhoneNumber()
+                        + " TO : " + histor.GetDestinationNumber());
 
-                System.Console.WriteLine( histor.GetTimestamp() + " FROM : " + subscriptionThomas.GetPhoneNumber() + " TO : "+ histor.GetDestinationNumber() );
-                historyBLL.Delete(histor as IHistory);
+                }
+                historyBLL.Delete(histor);
 
             }
 
+            System.Console.WriteLine();
+            System.Console.WriteLine("Creating some options");
+            OptionBLL optionBLL = new OptionBLL();
+            IOption option = optionBLL.Create("SMSBooster", 0, 100, 10, false);
 
+            System.Console.WriteLine();
+            System.Console.WriteLine("List all options");
+            foreach (IOption opt in optionBLL.GetAll())
+            {
+                System.Console.WriteLine("Option : " + opt.GetName()
+                    + " minute limit : " + opt.GetMinuteLimit()
+                    + " sms limit : " + opt.GetSMSLimit()
+                    + " price : " + opt.GetPrice()
+                    + " is available : " + opt.GetIsAvailable());
+            }
+
+            System.Console.WriteLine();
+            System.Console.WriteLine("Creating SubOption");
+            SubOptionBLL subOptionBLL = new SubOptionBLL();
+            ISubOption subOption = subOptionBLL.Create(subscriptionThomas.GetSubscriptionId(), option.GetOptionId(), DateTime.Today, DateTime.Today.AddDays(10));
+
+            System.Console.WriteLine();
+            System.Console.WriteLine("Listing SubOptions");
+
+            foreach (ISubOption opt in subOptionBLL.GetAll())
+            {
+                System.Console.WriteLine("SubOption subscriptor : " + subscriptionBLL.GetById(opt.GetSubscriptionId()).GetPhoneNumber()
+                    + " for option : " + optionBLL.GetById(opt.GetOptionId()).GetName()
+                    + " Started on : " + opt.GetStartDate()
+                    + " Ending on : " + opt.GetEndDate());
+            }
+
+            subOptionBLL.Delete(subOption);
+            optionBLL.Delete(option);
             subscriptionBLL.Delete(subscriptionThomas);
             clientBLL.Delete(clientThomas);
             planBLL.Delete(planNoSMS);
-            
+
 
             System.Console.Read();
         }

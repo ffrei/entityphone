@@ -46,12 +46,10 @@ namespace EntityPhone.DM.Model
         public void SetSMSLimit(int val){ this.sms_limit = val; }
         public decimal GetPrice(){ return this.price; }
         public void SetPrice(decimal val){ this.price = val; }
-        public decimal GetOverageMinutePrice(){ return this.overage_minute_price; }
-        public void SetOverageMinutePrice(decimal val){ this.overage_minute_price = val; }
-        public decimal GetOverageSMSPrice(){ return this.overage_sms_price; }
-        public void SetOverageSMSPrice(decimal val){ this.overage_sms_price = val; }
         public bool GetIsAvailable(){ return this.is_available; }
         public void SetIsAvailable(bool val){ this.is_available = val; }
+        public string GetName() { return this.name; }
+        public void SetName(string val) { this.name = val; }
     }
     public partial class plan : IPlan
     {
@@ -87,7 +85,7 @@ namespace EntityPhone.DM.Model
         public void SetOptionId(int val) { this.option_id = val; }
         public DateTime GetStartDate() { return this.start_date; }
         public void SetStartDate(DateTime val) { this.start_date = val; }
-        public DateTime GetEndDate() { return this.end_date; }
+        public DateTime? GetEndDate() { return this.end_date; }
         public void SetEndDate(DateTime val) { this.end_date = val; }
     }
     public partial class subscription : ISubscription

@@ -16,12 +16,10 @@ namespace EntityPhone.Model
         void SetSMSLimit(int val);
         decimal GetPrice();
         void SetPrice(decimal val);
-        decimal GetOverageMinutePrice();
-        void SetOverageMinutePrice(decimal val);
-        decimal GetOverageSMSPrice();
-        void SetOverageSMSPrice(decimal val);
         bool GetIsAvailable();
         void SetIsAvailable(bool val);
+        string GetName();
+        void SetName(string val);
 
     }
 }

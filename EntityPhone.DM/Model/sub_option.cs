@@ -18,7 +18,7 @@ namespace EntityPhone.DM.Model
         public int subscription_id { get; set; }
         public int option_id { get; set; }
         public System.DateTime start_date { get; set; }
-        public System.DateTime end_date { get; set; }
+        public Nullable<System.DateTime> end_date { get; set; }
     
         public virtual option option { get; set; }
         public virtual subscription subscription { get; set; }

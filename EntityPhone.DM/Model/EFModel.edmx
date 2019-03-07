@@ -39,8 +39,6 @@
           <Property Name="minute_limit" Type="int" Nullable="false" />
           <Property Name="sms_limit" Type="int" Nullable="false" />
           <Property Name="price" Type="numeric" Precision="8" Scale="3" Nullable="false" />
-          <Property Name="overage_minute_price" Type="numeric" Precision="8" Scale="3" Nullable="false" />
-          <Property Name="overage_sms_price" Type="numeric" Precision="8" Scale="3" Nullable="false" />
           <Property Name="is_available" Type="bit" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
@@ -71,7 +69,7 @@
           <Property Name="subscription_id" Type="int" Nullable="false" />
           <Property Name="option_id" Type="int" Nullable="false" />
           <Property Name="start_date" Type="date" Nullable="false" />
-          <Property Name="end_date" Type="date" Nullable="false" />
+          <Property Name="end_date" Type="date" />
         </EntityType>
         <EntityType Name="subscription">
           <Key>
@@ -242,8 +240,6 @@
           <Property Name="minute_limit" Type="Int32" Nullable="false" />
           <Property Name="sms_limit" Type="Int32" Nullable="false" />
           <Property Name="price" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
-          <Property Name="overage_minute_price" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
-          <Property Name="overage_sms_price" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
           <Property Name="is_available" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="sub_option" Relationship="Self.FK_sub_option_option" FromRole="option" ToRole="sub_option" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
@@ -272,7 +268,7 @@
           <Property Name="subscription_id" Type="Int32" Nullable="false" />
           <Property Name="option_id" Type="Int32" Nullable="false" />
           <Property Name="start_date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="end_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="end_date" Type="DateTime" Precision="0" />
           <NavigationProperty Name="option" Relationship="Self.FK_sub_option_option" FromRole="sub_option" ToRole="option" />
           <NavigationProperty Name="subscription" Relationship="Self.FK_sub_option_subscription" FromRole="sub_option" ToRole="subscription" />
         </EntityType>
@@ -425,8 +421,6 @@
                 <ScalarProperty Name="minute_limit" ColumnName="minute_limit" />
                 <ScalarProperty Name="sms_limit" ColumnName="sms_limit" />
                 <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="overage_minute_price" ColumnName="overage_minute_price" />
-                <ScalarProperty Name="overage_sms_price" ColumnName="overage_sms_price" />
                 <ScalarProperty Name="is_available" ColumnName="is_available" />
               </MappingFragment>
             </EntityTypeMapping>
