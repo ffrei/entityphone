@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace EntityPhone.Model
 {
-    public interface ISMSHistory
+    public interface ISMSHistory : IHistory
     {
-        int GetHistoryId();
-        void SetHistoryId(int val);
+
     }
 }

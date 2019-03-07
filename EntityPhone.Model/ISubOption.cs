@@ -16,7 +16,7 @@ namespace EntityPhone.Model
         void SetOptionId(int val);
         DateTime GetStartDate();
         void SetStartDate(DateTime val);
-        DateTime GetEndDate();
+        DateTime? GetEndDate();
         void SetEndDate(DateTime val);
     }
 }

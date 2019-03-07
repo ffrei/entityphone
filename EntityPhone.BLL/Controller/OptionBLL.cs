@@ -17,9 +17,9 @@ namespace EntityPhone.BLL.Controller
         {
             this.optionDAL = new OptionDAL();
         }
-        public IOption Create(string name, int minute_limit, int sms_limit, decimal price, decimal overage_minute_price, decimal overage_sms_price, bool is_available)
+        public IOption Create(string name, int minute_limit, int sms_limit, decimal price, bool is_available)
         {
-            return optionDAL.Create(name, minute_limit, sms_limit, price, overage_minute_price, overage_sms_price, is_available);
+            return optionDAL.Create(name, minute_limit, sms_limit, price, is_available);
         }
 
         public List<IOption> GetAll()

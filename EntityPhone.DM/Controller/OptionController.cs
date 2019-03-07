@@ -11,7 +11,7 @@ namespace EntityPhone.DM.Controller
 {
     public class OptionDAL
     {
-        public IOption Create(string name, int minute_limit, int sms_limit, decimal price, decimal overage_minute_price, decimal overage_sms_price, bool is_available)
+        public IOption Create(string name, int minute_limit, int sms_limit, decimal price, bool is_available)
         {
             using (var context = new EPEntities())
             {
@@ -21,8 +21,6 @@ namespace EntityPhone.DM.Controller
                     minute_limit = minute_limit,
                     sms_limit = sms_limit,
                     price = price,
-                    overage_minute_price = overage_minute_price,
-                    overage_sms_price = overage_sms_price,
                     is_available = is_available
                 };
                 context.option.Add(c);

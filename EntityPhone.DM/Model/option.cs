@@ -24,8 +24,6 @@ namespace EntityPhone.DM.Model
         public int minute_limit { get; set; }
         public int sms_limit { get; set; }
         public decimal price { get; set; }
-        public decimal overage_minute_price { get; set; }
-        public decimal overage_sms_price { get; set; }
         public bool is_available { get; set; }
         public string name { get; set; }
     

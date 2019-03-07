@@ -32,7 +32,7 @@ namespace EntityPhone.BLL.Controller
                 subscription_id,
                 timestamp,
                 cleanPhoneNumber(destination_number, phone_code),
-                phone_code, 
+                phone_code,
                 duration);
         }
 
@@ -50,7 +50,7 @@ namespace EntityPhone.BLL.Controller
         {
             // checking that phone number is correctly written
             history.SetDestinationNumber(cleanPhoneNumber(
-                history.GetDestinationNumber(), 
+                history.GetDestinationNumber(),
                 history.GetPhoneCode()
                 ));
             historyDAL.Update(history);
