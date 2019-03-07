@@ -1,7 +1,9 @@
 ﻿using EntityPhone.BLL.Controller;
+using EntityPhone.BLL.Utils;
 using EntityPhone.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -19,7 +21,23 @@ namespace EntityPhone.Console
 
             System.Console.WriteLine("Create Plan");
             PlanBLL planBLL = new PlanBLL();
-            IPlan planNoSMS = planBLL.Create("No SMS", -1, 0, 15, 0, 0.15M, true);
+            IPlan planNoSMS;
+            try
+            {
+                planNoSMS = planBLL.Create("No SMS <3", -2, 0, 15, -.30M, 0.15M, true);
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (DbEntityValidationResult dbEntityValidationResult in dbEx.EntityValidationErrors)
+                {
+                    foreach (DbValidationError error in dbEntityValidationResult.ValidationErrors)
+                    {
+                        System.Console.WriteLine(error.ErrorMessage);
+                    }
+                }
+                planNoSMS = planBLL.Create("No SMS ", -1, 0, 15, .30M, 0.15M, true);
+            }
+
 
             System.Console.WriteLine("Create Subscription");
             SubscriptionBLL subscriptionBLL = new SubscriptionBLL();
@@ -89,26 +107,25 @@ namespace EntityPhone.Console
                                     "206 782 8410 ",
                                     "206-782-8410",
                                     "(206) 782-8410",
-                                    "555-555-5555"};
+                                    "555-555-5555",
+                                    "05324+343"};
 
-            foreach(string phone_num in phone_nums)
+            foreach (string phone_num in phone_nums)
             {
-                ISMSHistory history = historyBLL.CreateSMS(subscriptionThomas.GetClientId(), DateTime.Now, phone_num, "+33");
-                ICallHistory call = historyBLL.CreateVoice(subscriptionThomas.GetClientId(), DateTime.Now, phone_num, "+33", 35);
-                Thread.Sleep(1000);
-                Histories.Add(history);
-                Histories.Add(call);
-            }
-
-            try
-            {
-                ISMSHistory history = historyBLL.CreateSMS(subscriptionThomas.GetClientId(), DateTime.Now, "05324+343", "+33");
-                historyBLL.Delete(history as IHistory);
-            }
-            catch(Exception e)
-            {
-                System.Console.WriteLine(e);
-            }
+                try
+                {
+                    System.Console.WriteLine("Create hist with  : " + phone_num);
+                    ISMSHistory history = historyBLL.CreateSMS(subscriptionThomas.GetSubscriptionId(), DateTime.Now, phone_num, "+33");
+                    ICallHistory call = historyBLL.CreateVoice(subscriptionThomas.GetSubscriptionId(), DateTime.Now, phone_num, "+33", 35);
+                    Thread.Sleep(1000);
+                    Histories.Add(history);
+                    Histories.Add(call);
+                }
+                catch (InvalidFormatException e)
+                {
+                    System.Console.WriteLine(e.Message);
+                }
+            }          
 
             System.Console.WriteLine();
             System.Console.WriteLine("List all history");

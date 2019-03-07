@@ -1,8 +1,10 @@
 ﻿using EntityPhone.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace EntityPhone.DM.Model
@@ -69,6 +71,16 @@ namespace EntityPhone.DM.Model
         public void SetOverageSMSPrice(decimal val){ this.overage_sms_price = val; }
         public bool GetIsAvailable(){ return this.is_available; }
         public void SetIsAvailable(bool val){ this.is_available = val; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (!Regex.IsMatch(this.name, "^[a-zA-Z ]*$"))
+                yield return new ValidationResult("Name can't contain special characters");
+            if (this.minute_limit<-1 || this.sms_limit<-1 )
+                yield return new ValidationResult("Limits have to be positif or -1");
+            if (this.overage_minute_price<0 || this.overage_sms_price < 0) 
+                yield return new ValidationResult("Prices have to be positif");
+        }
     }
     public partial class sms_history : ISMSHistory
     {
