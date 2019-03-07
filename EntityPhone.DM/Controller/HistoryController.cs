@@ -11,7 +11,7 @@ namespace EntityPhone.DM.Controller
 {
     public class HistoryDAL
     {
-        public IHistory CreateSMS(int subscription_id, DateTime timestamp, string destination_number, string phone_code)
+        public ISMSHistory CreateSMS(int subscription_id, DateTime timestamp, string destination_number, string phone_code)
         {
             using (var context = new EPEntities())
             {
@@ -31,7 +31,7 @@ namespace EntityPhone.DM.Controller
                 return null;
             }
         }
-        public IHistory CreateVoice(int subscription_id, DateTime timestamp, string destination_number, string phone_code, int duration)
+        public ICallHistory CreateVoice(int subscription_id, DateTime timestamp, string destination_number, string phone_code, int duration)
         {
             using (var context = new EPEntities())
             {

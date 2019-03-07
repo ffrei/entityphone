@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace EntityPhone.Console
@@ -71,7 +72,31 @@ namespace EntityPhone.Console
                     " id " + subscription.GetSubscriptionId());
             }
 
-            
+
+            System.Console.WriteLine();
+            System.Console.WriteLine("Create an History");
+            List<IHistory> Histories = new List<IHistory>();
+
+            HistoryBLL historyBLL = new HistoryBLL();
+            for(int i=0; i < 15; i++)
+            {
+                ISMSHistory history = historyBLL.CreateSMS(subscriptionThomas.GetClientId(), DateTime.Now, "605040302", "+33");
+                Thread.Sleep(1000);
+                Histories.Add(history as IHistory);
+            }
+
+            System.Console.WriteLine();
+            System.Console.WriteLine("List all history");
+
+            foreach(IHistory histor in Histories)
+            {
+
+                System.Console.WriteLine( histor.GetTimestamp() + " FROM : " + subscriptionThomas.GetPhoneNumber() + " TO : "+ histor.GetDestinationNumber() );
+                historyBLL.Delete(histor as IHistory);
+
+            }
+
+
             subscriptionBLL.Delete(subscriptionThomas);
             clientBLL.Delete(clientThomas);
             planBLL.Delete(planNoSMS);

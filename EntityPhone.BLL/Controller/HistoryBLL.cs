@@ -15,12 +15,12 @@ namespace EntityPhone.BLL.Controller
         {
             this.historyDAL = new HistoryDAL();
         }
-        public IHistory CreateSMS(int subscription_id, DateTime timestamp, string destination_number, string phone_code)
+        public ISMSHistory CreateSMS(int subscription_id, DateTime timestamp, string destination_number, string phone_code)
         {
             return historyDAL.CreateSMS(subscription_id, timestamp, destination_number, phone_code);
         }
 
-        public IHistory CreateVoice(int subscription_id, DateTime timestamp, string destination_number, string phone_code, int duration)
+        public ICallHistory CreateVoice(int subscription_id, DateTime timestamp, string destination_number, string phone_code, int duration)
         {
             return historyDAL.CreateVoice(subscription_id, timestamp, destination_number, phone_code,duration);
         }
