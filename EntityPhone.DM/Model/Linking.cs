@@ -43,9 +43,9 @@ namespace EntityPhone.DM.Model
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (!Regex.IsMatch(this.destination_number, "^\\d{9-12}$"))
+            if (!Regex.IsMatch(this.destination_number, "^\\d{9,12}$"))
                 yield return new ValidationResult("Destination number can only be numerics");
-            if (!Regex.IsMatch(this.destination_number, "^\\+\\d{1-3}$"))
+            if (!Regex.IsMatch(this.phone_code, "^\\+\\d{1,3}$"))
                 yield return new ValidationResult("Phone code must be + and digits 1-3");
             if (this.timestamp > DateTime.Now)
                 yield return new ValidationResult("Are you a time traveler ? Historic Timestamp cannot be in the future !");

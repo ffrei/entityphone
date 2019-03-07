@@ -28,13 +28,7 @@ namespace EntityPhone.Console
             }
             catch (DbEntityValidationException dbEx)
             {
-                foreach (DbEntityValidationResult dbEntityValidationResult in dbEx.EntityValidationErrors)
-                {
-                    foreach (DbValidationError error in dbEntityValidationResult.ValidationErrors)
-                    {
-                        System.Console.WriteLine(error.ErrorMessage);
-                    }
-                }
+                printValidationException(dbEx);
                 planNoSMS = planBLL.Create("No SMS ", -1, 0, 15, .30M, 0.15M, true);
             }
 
@@ -125,7 +119,8 @@ namespace EntityPhone.Console
                 {
                     System.Console.WriteLine(e.Message);
                 }
-            }          
+                catch (DbEntityValidationException dbEx) { printValidationException(dbEx); }
+            }
 
             System.Console.WriteLine();
             System.Console.WriteLine("List all history");
@@ -179,12 +174,68 @@ namespace EntityPhone.Console
                 string res = "SubOption subscriptor : " + subscriptionBLL.GetById(opt.GetSubscriptionId()).GetPhoneNumber()
                     + " for option : " + optionBLL.GetById(opt.GetOptionId()).GetName()
                     + " Started on : " + opt.GetStartDate().ToShortDateString();
-                if(opt.GetEndDate() != null)
+                if (opt.GetEndDate() != null)
                 {
                     res += " Ending on : " + ((DateTime)opt.GetEndDate()).ToShortDateString();
                 }
                 System.Console.WriteLine(res);
             }
+
+
+            System.Console.WriteLine();
+            System.Console.WriteLine("Trying to break the system ");
+            int nb = 0;
+
+            try
+            {
+                clientBLL.Create("Thoma$", new DateTime(1980, 3, 25));
+                System.Console.WriteLine("Got {0} :) ", ++nb);
+            }
+            catch (DbEntityValidationException dbEx) { printValidationException(dbEx); }
+
+            try
+            {
+                clientBLL.Create("Thomas", DateTime.Today.AddDays(3));
+                System.Console.WriteLine("Got {0} :) ", ++nb);
+            }
+            catch (DbEntityValidationException dbEx) { printValidationException(dbEx); }
+
+
+            try
+            {
+                planBLL.Create("<3", 0, 0, 0, 0, 0, false);
+                System.Console.WriteLine("Got {0} :) ", ++nb);
+            }
+            catch (DbEntityValidationException dbEx) { printValidationException(dbEx); }
+
+
+            try
+            {
+                planBLL.Create("love", -2, -2, -2, -2, -2, false);
+                System.Console.WriteLine("Got one :) "); nb++;
+            }
+            catch (DbEntityValidationException dbEx) { printValidationException(dbEx); }
+
+            try
+            {
+                subscriptionBLL.Create(1, 1, "+3345566786", DateTime.Today, DateTime.Today.AddDays(-3));
+                System.Console.WriteLine("Got one :) "); nb++;
+            }
+            catch (DbEntityValidationException dbEx) { printValidationException(dbEx); }
+
+            try
+            {
+                optionBLL.Create("<3", -2, -2, -1, true);
+                System.Console.WriteLine("Got one :) "); nb++;
+            }
+            catch (DbEntityValidationException dbEx) { printValidationException(dbEx); }
+
+            try
+            {
+                subOptionBLL.Create(1, 1, DateTime.Today, DateTime.Today.AddDays(-3));
+                System.Console.WriteLine("Got one :) "); nb++;
+            }
+            catch (DbEntityValidationException dbEx) { printValidationException(dbEx); }
 
             subOptionBLL.Delete(subOption);
             optionBLL.Delete(option);
@@ -194,6 +245,17 @@ namespace EntityPhone.Console
 
 
             System.Console.Read();
+        }
+
+        private static void printValidationException(DbEntityValidationException dbEx)
+        {
+            foreach (DbEntityValidationResult dbEntityValidationResult in dbEx.EntityValidationErrors)
+            {
+                foreach (DbValidationError error in dbEntityValidationResult.ValidationErrors)
+                {
+                    System.Console.WriteLine("Aargh : " + error.ErrorMessage);
+                }
+            }
         }
     }
 }
