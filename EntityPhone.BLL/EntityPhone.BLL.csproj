@@ -48,6 +48,8 @@
     <Compile Include="Controller\ClientBLL.cs" />
     <Compile Include="Controller\PlanBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\InvalidFormatException.cs" />
+    <Compile Include="Utils\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EntityPhone.DM\EntityPhone.DM.csproj">

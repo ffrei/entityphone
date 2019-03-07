@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using EntityPhone.BLL.Utils;
 using EntityPhone.DM.Controller;
 using EntityPhone.Model;
 
@@ -21,7 +22,7 @@ namespace EntityPhone.BLL.Controller
             return historyDAL.CreateSMS(
                 subscription_id,
                 timestamp,
-                cleanPhoneNumber(destination_number, phone_code),
+                Validator.cleanPhoneNumber(destination_number, phone_code),
                 phone_code
                 );
         }
@@ -31,7 +32,7 @@ namespace EntityPhone.BLL.Controller
             return historyDAL.CreateVoice(
                 subscription_id,
                 timestamp,
-                cleanPhoneNumber(destination_number, phone_code),
+                Validator.cleanPhoneNumber(destination_number, phone_code),
                 phone_code,
                 duration);
         }
@@ -49,7 +50,7 @@ namespace EntityPhone.BLL.Controller
         public void Update(IHistory history)
         {
             // checking that phone number is correctly written
-            history.SetDestinationNumber(cleanPhoneNumber(
+            history.SetDestinationNumber(Validator.cleanPhoneNumber(
                 history.GetDestinationNumber(),
                 history.GetPhoneCode()
                 ));
@@ -58,15 +59,6 @@ namespace EntityPhone.BLL.Controller
         public void Delete(IHistory history)
         {
             historyDAL.Delete(history);
-        }
-
-        private string cleanPhoneNumber(string number, string code)
-        {
-            string new_number = Regex.Replace(Regex.Replace(number, "^\\" + code, "0"), "[ \\.\\-/\\(\\)]", "");
-
-            if (Regex.IsMatch(new_number, "^\\d{1,12}$"))
-                return new_number;
-            throw new Exception("Invalid format");
         }
     }
 }
