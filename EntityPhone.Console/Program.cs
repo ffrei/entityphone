@@ -159,10 +159,14 @@ namespace EntityPhone.Console
 
             foreach (ISubOption opt in subOptionBLL.GetAll())
             {
-                System.Console.WriteLine("SubOption subscriptor : " + subscriptionBLL.GetById(opt.GetSubscriptionId()).GetPhoneNumber()
+                string res = "SubOption subscriptor : " + subscriptionBLL.GetById(opt.GetSubscriptionId()).GetPhoneNumber()
                     + " for option : " + optionBLL.GetById(opt.GetOptionId()).GetName()
-                    + " Started on : " + opt.GetStartDate()
-                    + " Ending on : " + opt.GetEndDate());
+                    + " Started on : " + opt.GetStartDate().ToShortDateString();
+                if(opt.GetEndDate() != null)
+                {
+                    res += " Ending on : " + ((DateTime)opt.GetEndDate()).ToShortDateString();
+                }
+                System.Console.WriteLine(res);
             }
 
             subOptionBLL.Delete(subOption);
