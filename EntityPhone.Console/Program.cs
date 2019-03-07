@@ -31,7 +31,7 @@ namespace EntityPhone.Console
                 null);
 
             String phoneNumber = subscriptionThomas.GetPhoneNumber();
-            System.Console.WriteLine("Searching client by phone number : "+ phoneNumber);
+            System.Console.WriteLine("Searching client by phone number : " + phoneNumber);
             IClient clientThomas2 = clientBLL.GetByPhoneNumber(phoneNumber);
 
             if (clientThomas2 != null)
@@ -78,20 +78,43 @@ namespace EntityPhone.Console
             List<IHistory> Histories = new List<IHistory>();
 
             HistoryBLL historyBLL = new HistoryBLL();
-            for(int i=0; i < 15; i++)
+
+            string[] phone_nums = {"(1) (415) 123-1234",
+                                    "(415) 123-1234",
+                                    "1-800-123-1234",
+                                    "206/782-8410",
+                                    "206.782.8410",
+                                    "05324225543",
+                                    "+335324225543",
+                                    "206 782 8410 ",
+                                    "206-782-8410",
+                                    "(206) 782-8410",
+                                    "555-555-5555"};
+
+            foreach(string phone_num in phone_nums)
             {
-                ISMSHistory history = historyBLL.CreateSMS(subscriptionThomas.GetClientId(), DateTime.Now, "605040302", "+33");
+                ISMSHistory history = historyBLL.CreateSMS(subscriptionThomas.GetClientId(), DateTime.Now, phone_num, "+33");
                 Thread.Sleep(1000);
                 Histories.Add(history as IHistory);
+            }
+
+            try
+            {
+                ISMSHistory history = historyBLL.CreateSMS(subscriptionThomas.GetClientId(), DateTime.Now, "05324+343", "+33");
+                historyBLL.Delete(history as IHistory);
+            }
+            catch(Exception e)
+            {
+                System.Console.WriteLine(e);
             }
 
             System.Console.WriteLine();
             System.Console.WriteLine("List all history");
 
-            foreach(IHistory histor in Histories)
+            foreach (IHistory histor in Histories)
             {
 
-                System.Console.WriteLine( histor.GetTimestamp() + " FROM : " + subscriptionThomas.GetPhoneNumber() + " TO : "+ histor.GetDestinationNumber() );
+                System.Console.WriteLine(histor.GetTimestamp() + " FROM : " + subscriptionThomas.GetPhoneNumber() + " TO : " + histor.GetDestinationNumber());
                 historyBLL.Delete(histor as IHistory);
 
             }
@@ -100,7 +123,7 @@ namespace EntityPhone.Console
             subscriptionBLL.Delete(subscriptionThomas);
             clientBLL.Delete(clientThomas);
             planBLL.Delete(planNoSMS);
-            
+
 
             System.Console.Read();
         }

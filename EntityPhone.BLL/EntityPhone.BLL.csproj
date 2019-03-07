@@ -55,7 +55,7 @@
       <Name>EntityPhone.DM</Name>
     </ProjectReference>
     <ProjectReference Include="..\EntityPhone.Model\EntityPhone.Model.csproj">
-      <Project>{831A6CB1-6AB8-4730-AC71-04AEDD08D2E4}</Project>
+      <Project>{831a6cb1-6ab8-4730-ac71-04aedd08d2e4}</Project>
       <Name>EntityPhone.Model</Name>
     </ProjectReference>
   </ItemGroup>
