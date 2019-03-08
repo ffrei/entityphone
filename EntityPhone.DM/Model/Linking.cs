@@ -29,6 +29,15 @@ namespace EntityPhone.DM.Model
             if ((DateTime.Today - this.birthday).TotalDays< 6570 || (DateTime.Today - this.birthday).TotalDays > 40150)
                 yield return new ValidationResult("You need to be at least 18 years old and less that 110 years old !");
         }
+
+        public List<ISubscription> GetSubscription() {
+            List<ISubscription> res = new List<ISubscription>();
+            foreach(subscription sub in this.subscription)
+            {
+                res.Add(sub);
+            }
+            return res;
+        }
     }
     public partial class history : IHistory
     {
@@ -127,7 +136,6 @@ namespace EntityPhone.DM.Model
     {
 
     }
-
     public partial class sub_option : ISubOption
     {
         public int GetSubOptionId() { return this.sub_option_id; }

@@ -58,8 +58,9 @@ namespace EntityPhone.DM.Controller
             using (var context = new EPEntities())
             {
                 List<IHistory> res = new List<IHistory>();
-                foreach (IHistory history in context.history.ToList())
+                foreach (history history in context.history.ToList())
                 {
+                    context.Entry(history).Reference(h => h.subscription);
                     res.Add(history);
                 }
                 return res;
@@ -69,7 +70,10 @@ namespace EntityPhone.DM.Controller
         {
             using (var context = new EPEntities())
             {
-                return context.history.Find(id);
+                
+                history history = context.history.Find(id);
+                context.Entry(history).Reference(h => h.subscription);
+                return history;
             }
         }
 

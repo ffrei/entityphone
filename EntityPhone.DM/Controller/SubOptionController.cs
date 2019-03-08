@@ -37,8 +37,10 @@ namespace EntityPhone.DM.Controller
             using (var context = new EPEntities())
             {
                 List<ISubOption> res = new List<ISubOption>();
-                foreach (ISubOption subOption in context.sub_option.ToList())
+                foreach (sub_option subOption in context.sub_option.ToList())
                 {
+                    context.Entry(subOption).Reference(s => s.option).Load();
+                    context.Entry(subOption).Reference(s => s.subscription).Load();
                     res.Add(subOption);
                 }
                 return res;
@@ -48,7 +50,10 @@ namespace EntityPhone.DM.Controller
         {
             using (var context = new EPEntities())
             {
-                return context.sub_option.Find(id);
+                sub_option subOption = context.sub_option.Find(id);
+                context.Entry(subOption).Reference(s => s.option).Load();
+                context.Entry(subOption).Reference(s => s.subscription).Load();
+                return subOption;
             }
         }
 

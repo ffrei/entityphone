@@ -40,8 +40,9 @@ namespace EntityPhone.DM.Controller
             using (var context = new EPEntities())
             {
                 List<IPlan> res = new List<IPlan>();
-                foreach (IPlan plan in context.plan.ToList())
+                foreach (plan plan in context.plan.ToList())
                 {
+                    context.Entry(plan).Collection(p => p.subscription).Load();
                     res.Add(plan);
                 }
                 return res;
@@ -51,7 +52,11 @@ namespace EntityPhone.DM.Controller
         {
             using (var context = new EPEntities())
             {
-                return context.plan.Find(id);
+                plan plan = context.plan.Find(id);
+
+                context.Entry(plan).Collection(p => p.subscription).Load();
+
+                return plan;
             }
         }
 

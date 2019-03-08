@@ -9,6 +9,7 @@ using EntityPhone.Model;
 
 namespace EntityPhone.DM.Controller
 {
+
     public class ClientDAL
     {
         public IClient Create(string name, DateTime birthday)
@@ -35,8 +36,9 @@ namespace EntityPhone.DM.Controller
             using (var context = new EPEntities())
             {
                 List<IClient> res = new List<IClient>();
-                foreach (IClient client in context.client.ToList())
+                foreach (client client in context.client.ToList())
                 {
+                    context.Entry(client).Collection(c => c.subscription).Load();
                     res.Add(client);
                 }
                 return res;
@@ -46,7 +48,9 @@ namespace EntityPhone.DM.Controller
         public IClient GetById(int id) {
             using (var context = new EPEntities())
             {
-                return context.client.Find(id);
+                client client = context.client.Find(id);
+                context.Entry(client).Collection(c => c.subscription).Load();
+                return client;
             }
         }
 
@@ -54,8 +58,11 @@ namespace EntityPhone.DM.Controller
         {
             using (var context = new EPEntities())
             {
-                return context.client.Where(c =>
+                client client = context.client.Where(c =>
                     c.subscription.Where(s => s.phone_number == phone_number).FirstOrDefault().client_id == c.client_id).First();
+
+                context.Entry(client).Collection(c => c.subscription).Load();
+                return client;
             }
         }
 
@@ -63,7 +70,6 @@ namespace EntityPhone.DM.Controller
         {
             using (var context = new EPEntities())
             {
-                // to test : context.client.Add((client)client);
                 context.Entry((client)client).State = EntityState.Modified;
                 context.SaveChanges();
             }
@@ -73,7 +79,6 @@ namespace EntityPhone.DM.Controller
         {
             using (var context = new EPEntities())
             {
-                //context.client.Remove((client)client);
                 context.Entry((client)client).State = EntityState.Deleted;
                 context.SaveChanges();
             }

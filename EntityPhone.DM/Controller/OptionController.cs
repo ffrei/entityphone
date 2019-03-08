@@ -38,8 +38,9 @@ namespace EntityPhone.DM.Controller
             using (var context = new EPEntities())
             {
                 List<IOption> res = new List<IOption>();
-                foreach (IOption option in context.option.ToList())
+                foreach (option option in context.option.ToList())
                 {
+                    context.Entry(option).Collection(o=>o.sub_option).Load();
                     res.Add(option);
                 }
                 return res;

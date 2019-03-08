@@ -47,8 +47,12 @@ namespace EntityPhone.DM.Controller
             using (var context = new EPEntities())
             {
                 List<ISubscription> res = new List<ISubscription>();
-                foreach (ISubscription subscription in context.subscription.ToList())
+                foreach (subscription subscription in context.subscription.ToList())
                 {
+                    context.Entry(subscription).Collection(c => c.history).Load();
+                    context.Entry(subscription).Collection(c => c.sub_option).Load();
+                    context.Entry(subscription).Reference(c => c.client).Load();
+                    context.Entry(subscription).Reference(c => c.plan).Load();
                     res.Add(subscription);
                 }
                 return res;
@@ -59,7 +63,12 @@ namespace EntityPhone.DM.Controller
         {
             using (var context = new EPEntities())
             {
-                return context.subscription.Find(id);
+                subscription subscription = context.subscription.Find(id);
+                context.Entry(subscription).Collection(c => c.history).Load();
+                context.Entry(subscription).Collection(c => c.sub_option).Load();
+                context.Entry(subscription).Reference(c => c.client).Load();
+                context.Entry(subscription).Reference(c => c.plan).Load();
+                return subscription;
             }
         }
 
