@@ -25,5 +25,6 @@ namespace EntityPhone.Model
         void SetOverageSMSPrice(decimal val);
         bool GetIsAvailable();
         void SetIsAvailable(bool val);
+        IList<ISubscription> GetSubscriptions();
     }
 }

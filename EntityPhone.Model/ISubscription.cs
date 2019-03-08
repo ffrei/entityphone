@@ -21,6 +21,9 @@ namespace EntityPhone.Model
         void SetStartDate(DateTime val);
         DateTime? GetEndDate();
         void SetEndDate(DateTime val);
-
+        IPlan GetPlan();
+        IClient GetClient();
+        IList<ISubOption> GetSubOptions();
+        IList<IHistory> GetHistories();
     }
 }

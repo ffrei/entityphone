@@ -19,6 +19,6 @@ namespace EntityPhone.Model
         void SetDestinationNumber(string val);
         string GetPhoneCode();
         void SetPhoneCode(string val);
-
+        ISubscription GetSubscription();
     }
 }

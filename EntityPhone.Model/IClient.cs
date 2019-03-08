@@ -17,6 +17,6 @@ namespace EntityPhone.Model
         void SetName(string val);
         DateTime GetBirthday();
         void SetBirthDay(DateTime val);
-        List<ISubscription> GetSubscription();
+        IList<ISubscription> GetSubscription();
     }
 }

@@ -19,5 +19,7 @@ namespace EntityPhone.Model
         void SetStartDate(DateTime val);
         DateTime? GetEndDate();
         void SetEndDate(DateTime val);
+        IOption GetOption();
+        ISubscription GetSubscription();
     }
 }

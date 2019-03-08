@@ -21,6 +21,6 @@ namespace EntityPhone.Model
         void SetIsAvailable(bool val);
         string GetName();
         void SetName(string val);
-
+        IList<ISubOption> GetSubOptions();
     }
 }

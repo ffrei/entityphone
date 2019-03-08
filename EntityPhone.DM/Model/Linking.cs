@@ -30,7 +30,7 @@ namespace EntityPhone.DM.Model
                 yield return new ValidationResult("You need to be at least 18 years old and less that 110 years old !");
         }
 
-        public List<ISubscription> GetSubscription() {
+        public IList<ISubscription> GetSubscription() {
             List<ISubscription> res = new List<ISubscription>();
             foreach(subscription sub in this.subscription)
             {
@@ -62,6 +62,10 @@ namespace EntityPhone.DM.Model
                 yield return new ValidationResult("Are you a time traveler ? Historic Timestamp cannot be in the future !");
         }
 
+        public ISubscription GetSubscription()
+        {
+            throw new NotImplementedException();
+        }
     }
     public partial class call_history : ICallHistory
     {
@@ -100,6 +104,11 @@ namespace EntityPhone.DM.Model
             if (this.price < 0)
                 yield return new ValidationResult("Price must be positive");
         }
+
+        public IList<ISubOption> GetSubOptions()
+        {
+            throw new NotImplementedException();
+        }
     }
     public partial class plan : IPlan
     {
@@ -131,6 +140,11 @@ namespace EntityPhone.DM.Model
             if (this.price < 0 )
                 yield return new ValidationResult("Price have to be positif");
         }
+
+        public IList<ISubscription> GetSubscriptions()
+        {
+            throw new NotImplementedException();
+        }
     }
     public partial class sms_history : ISMSHistory
     {
@@ -156,6 +170,16 @@ namespace EntityPhone.DM.Model
             if (this.start_date > this.end_date)
                 yield return new ValidationResult("Start date must be before end date");
         }
+
+        public IOption GetOption()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ISubscription GetSubscription()
+        {
+            throw new NotImplementedException();
+        }
     }
     public partial class subscription : ISubscription
     {
@@ -180,6 +204,26 @@ namespace EntityPhone.DM.Model
                 yield return new ValidationResult("Start date must be in the future");
             if (this.start_date > this.end_date)
                 yield return new ValidationResult("Start date must be before end date");
+        }
+
+        public IPlan GetPlan()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IClient GetClient()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<ISubOption> GetSubOptions()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<IHistory> GetHistories()
+        {
+            throw new NotImplementedException();
         }
     }
 
