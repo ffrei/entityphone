@@ -20,24 +20,21 @@ namespace EntityPhone.DM.Model
         public DateTime GetBirthday() { return this.birthday; }
         public void SetBirthDay(DateTime val) { this.birthday = val; }
 
+        public IList<ISubscription> GetSubscription()
+        {
+            return this.subscription.Cast<ISubscription>().ToList();
+        }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (!Regex.IsMatch(this.name, "^[a-zA-Z ]*$"))
                 yield return new ValidationResult("Name can't be numbers or special characters");
             if (this.birthday > DateTime.Today)
                 yield return new ValidationResult("Are you a time traveler ? Birthday cannot be in the future !");
-            if ((DateTime.Today - this.birthday).TotalDays< 6570 || (DateTime.Today - this.birthday).TotalDays > 40150)
+            if ((DateTime.Today - this.birthday).TotalDays < 6570 || (DateTime.Today - this.birthday).TotalDays > 40150)
                 yield return new ValidationResult("You need to be at least 18 years old and less that 110 years old !");
         }
 
-        public IList<ISubscription> GetSubscription() {
-            List<ISubscription> res = new List<ISubscription>();
-            foreach(subscription sub in this.subscription)
-            {
-                res.Add(sub);
-            }
-            return res;
-        }
     }
     public partial class history : IHistory
     {
@@ -64,7 +61,7 @@ namespace EntityPhone.DM.Model
 
         public ISubscription GetSubscription()
         {
-            throw new NotImplementedException();
+            return this.subscription;
         }
     }
     public partial class call_history : ICallHistory
@@ -107,7 +104,7 @@ namespace EntityPhone.DM.Model
 
         public IList<ISubOption> GetSubOptions()
         {
-            throw new NotImplementedException();
+            return this.sub_option.Cast<ISubOption>().ToList();
         }
     }
     public partial class plan : IPlan
@@ -128,7 +125,10 @@ namespace EntityPhone.DM.Model
         public void SetOverageSMSPrice(decimal val) { this.overage_sms_price = val; }
         public bool GetIsAvailable() { return this.is_available; }
         public void SetIsAvailable(bool val) { this.is_available = val; }
-
+        public IList<ISubscription> GetSubscriptions()
+        {
+            return this.subscription.Cast<ISubscription>().ToList();
+        }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (!Regex.IsMatch(this.name, "^[a-zA-Z ]*$"))
@@ -137,14 +137,11 @@ namespace EntityPhone.DM.Model
                 yield return new ValidationResult("Limits have to be positif or -1");
             if (this.overage_minute_price < 0 || this.overage_sms_price < 0)
                 yield return new ValidationResult("Overage Prices have to be positif");
-            if (this.price < 0 )
+            if (this.price < 0)
                 yield return new ValidationResult("Price have to be positif");
         }
 
-        public IList<ISubscription> GetSubscriptions()
-        {
-            throw new NotImplementedException();
-        }
+
     }
     public partial class sms_history : ISMSHistory
     {
@@ -173,12 +170,12 @@ namespace EntityPhone.DM.Model
 
         public IOption GetOption()
         {
-            throw new NotImplementedException();
+            return this.option;
         }
 
         public ISubscription GetSubscription()
         {
-            throw new NotImplementedException();
+            return this.subscription;
         }
     }
     public partial class subscription : ISubscription
@@ -208,22 +205,22 @@ namespace EntityPhone.DM.Model
 
         public IPlan GetPlan()
         {
-            throw new NotImplementedException();
+            return this.plan;
         }
 
         public IClient GetClient()
         {
-            throw new NotImplementedException();
+            return this.client;
         }
 
         public IList<ISubOption> GetSubOptions()
         {
-            throw new NotImplementedException();
+            return this.sub_option.Cast<ISubOption>().ToList();
         }
 
         public IList<IHistory> GetHistories()
         {
-            throw new NotImplementedException();
+            return this.history.Cast<IHistory>().ToList();
         }
     }
 
